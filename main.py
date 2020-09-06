@@ -42,6 +42,7 @@ def seperate_issuers(lines):
     """Seperates each issuer into the different properties"""
     issuers = []
     for line in lines:
+        line = line.strip('\n')
         values = line.split(";")
         issuer = {'network': values[0], 'length': seperate_lengths(values[1]),\
                 'prefix': seperate_prefix(values[2])}
