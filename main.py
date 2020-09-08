@@ -28,16 +28,12 @@ def verify_credit_number(credit_card_number):
     return valid
 
 def seperate_lengths(values):
-    """Seperates different number length values if any"""
-    if "," in values:
-        values = values.split(",")
-    return values
+    """Seperates different number length values"""
+    return values.split(",")
 
-def seperate_prefix(values):
-    """Seperates different credit card numbers if any"""
-    if "," in values:
-        values = values.split(",")
-    return values
+def seperate_prefixes(values):
+    """Seperates different credit card numbers"""
+    return values.split(",")
 
 def seperate_issuers(lines):
     """Seperates each issuer into the different properties"""
@@ -45,8 +41,8 @@ def seperate_issuers(lines):
     for line in lines:
         line = line.strip('\n')
         values = line.split(";")
-        issuer = {'network': values[0], 'length': seperate_lengths(values[1]),\
-                'prefix': seperate_prefix(values[2])}
+        issuer = {'network': values[0], 'length': values[1],\
+                'prefix': values[2]}
         issuers.append(issuer)
     return issuers
 
@@ -59,13 +55,46 @@ def load_card_types():
     types.close()
     return issuers
 
+def length_matches(lengths, number):
+    """Determines if credit card lenth matches a length"""
+    lengths_list = seperate_lengths(lengths)
+    matches = False
+    for i in range(len(lengths_list)):
+        if len(number) == int(lengths_list[i]):
+            matches = True
+        i += 1
+    return matches
+
+def prefix_matches(prefixes, number):
+    """Determines if credit card prefix matches a prefix"""
+    prefix_list = seperate_prefixes(prefixes)
+    matches = False
+    for i in range(len(prefix_list)):
+        if prefix_list[i] in number:
+            matches = True
+        i += 1
+    return matches
+
+def determine_card_type(credit_card_number, issuers):
+    """Determines a card type for a given card number"""
+    card_type = "Invalid"
+    length = False
+    prefix = False
+    for issuer in issuers:
+        length = length_matches(issuer['length'], credit_card_number)
+        prefix = prefix_matches(issuer['prefix'], credit_card_number)
+        if length and prefix:
+            card_type = issuer
+    return card_type['network']
+
 def main():
     """Main entry point of program."""
     print("Please enter a credit card number:")
     credit_card_number = input()
     print('Credit Card Number:\t' + verify_credit_number(credit_card_number))
     issuers = load_card_types()
-    print(issuers)
+    card_type = determine_card_type(credit_card_number, issuers)
+    print('Credit Card Type:\t' + card_type)
 
 if __name__ == "__main__":
     main()
