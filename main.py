@@ -11,6 +11,7 @@ card is genuine.
 """
 
 import re
+import sys
 
 __author__ = "David Walker"
 __verison__ = "Fall 2020"
@@ -52,7 +53,7 @@ def seperate_issuers(lines):
 
 def load_card_types():
     """Loads a ssv file and returns the seperated lines in a list of dictionaries"""
-    types = open('credit_card_types.ssv')
+    types = open(sys.argv[1])
     lines = types.readlines()
     issuers = seperate_issuers(lines)
     types.close()
