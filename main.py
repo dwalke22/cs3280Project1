@@ -59,20 +59,19 @@ def length_matches(lengths, number):
     """Determines if credit card lenth matches a length"""
     lengths_list = seperate_lengths(lengths)
     matches = False
-    for i in range(len(lengths_list)):
-        if len(number) == int(lengths_list[i]):
+    for i in lengths_list:
+        if len(number) == int(i):
             matches = True
-        i += 1
     return matches
 
 def prefix_matches(prefixes, number):
     """Determines if credit card prefix matches a prefix"""
     prefix_list = seperate_prefixes(prefixes)
     matches = False
-    for i in range(len(prefix_list)):
-        if prefix_list[i] in number:
+    for i in prefix_list:
+        regex = re.compile(i)
+        if regex.match(number):
             matches = True
-        i += 1
     return matches
 
 def determine_card_type(credit_card_number, issuers):
