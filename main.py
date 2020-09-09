@@ -12,20 +12,17 @@ card is genuine.
 
 import re
 import sys
+import utils
 
 __author__ = "David Walker"
 __verison__ = "Fall 2020"
 
 def verify_credit_number(credit_card_number):
     """Verifies that the credit card number follows is a normal number"""
-    credit_card_regex = re.compile(r'\d{13,19}|(\d{4}-){3}\d{4}|(\d{4} ){3}\d{4}')
-    match = credit_card_regex.match(credit_card_number)
-    valid = ''
-    if match:
-        valid = match.group()
-    else:
-        valid = 'Invalid'
-    return valid
+    valid = utils.is_valid(credit_card_number)
+    if valid:
+        return credit_card_number
+    return "Invalid"
 
 def seperate_lengths(values):
     """Seperates different number length values"""
