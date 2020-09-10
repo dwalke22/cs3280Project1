@@ -66,15 +66,15 @@ def prefix_matches(prefixes, number):
 
 def determine_card_type(credit_card_number, issuers):
     """Determines a card type for a given card number"""
-    card_type = "Invalid"
+    card_type = ""
     length = False
     prefix = False
     for issuer in issuers:
         length = length_matches(issuer['length'], credit_card_number)
         prefix = prefix_matches(issuer['prefix'], credit_card_number)
         if length and prefix:
-            card_type = issuer
-    return card_type['network']
+            card_type = issuer['network']
+    return card_type
 
 def main():
     """Main entry point of program."""

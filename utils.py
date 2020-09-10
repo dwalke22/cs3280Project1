@@ -8,24 +8,25 @@ import re
 def luhn_verified(credit_card_number):
     """Performs the Luhn algorithm on the credit card number to confirm it is real"""
     result = "Fake"
-    if is_valid(credit_card_number):
-        credit_card_number = credit_card_number[:-1]
-        if "-" in credit_card_number:
-            credit_card_number = credit_card_number.replace("-", "")
-        elif " " in credit_card_number:
-            credit_card_number = credit_card_number.replace(" ", "")
-        sum_of_numbers = 0
-        length = len(credit_card_number)
-        for i in range(length):
-            number = int(credit_card_number[i])
-            if i % 2 != 0:
-                number = number * 2
-                if number > 9:
-                    number = number - 9
-            sum_of_numbers += number
-            i += 1
-        if sum_of_numbers % 10 == 0:
-            result = "Authentic"
+    if "-" in credit_card_number:
+        credit_card_number = credit_card_number.replace("-", "")
+    elif " " in credit_card_number:
+        credit_card_number = credit_card_number.replace(" ", "")
+    sum_of_numbers = 0
+    number = []
+    for digit in credit_card_number:
+        digit = int(digit)
+        number.append(digit)
+    odd_digits = number[-3::-2]
+    even_digits = number[-2::-2]
+    sum_of_numbers += sum(odd_digits)
+    for d in even_digits:
+        d = d * 2
+        if d > 9:
+            d = d - 9
+        sum_of_numbers += d
+    if sum_of_numbers % 10 == 0:
+        result = "Authentic"
     return result
 
 
