@@ -12,16 +12,18 @@ def luhn_verified(credit_card_number):
         credit_card_number = credit_card_number[:-1]
         if "-" in credit_card_number:
             credit_card_number = credit_card_number.replace("-", "")
-        else if " " in credit_card_number:
+        elif " " in credit_card_number:
             credit_card_number = credit_card_number.replace(" ", "")
         sum_of_numbers = 0
-        for i in len(credit_card_number) - 1:
-            number = credit_card_number[i]
+        length = len(credit_card_number)
+        for i in range(length):
+            number = int(credit_card_number[i])
             if i % 2 != 0:
                 number = number * 2
                 if number > 9:
                     number = number - 9
             sum_of_numbers += number
+            i += 1
         if sum_of_numbers % 10 == 0:
             result = "Authentic"
     return result

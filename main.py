@@ -93,7 +93,7 @@ def main():
     print('Credit Card Type:\t' + card_type)
     if "-" in credit_card_number:
         credit_card_number = credit_card_number.replace("-", "")
-    else if " " in credit_card_number:
+    elif " " in credit_card_number:
         credit_card_number = credit_card_number.replace(" ", "")
     print('Luhn Verification:\t' + utils.luhn_verified(credit_card_number))
 
