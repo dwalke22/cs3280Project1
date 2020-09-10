@@ -17,13 +17,6 @@ import utils
 __author__ = "David Walker"
 __verison__ = "Fall 2020"
 
-def verify_credit_number(credit_card_number):
-    """Verifies that the credit card number follows is a normal number"""
-    valid = utils.is_valid(credit_card_number)
-    if valid:
-        return credit_card_number
-    return "Invalid"
-
 def seperate_lengths(values):
     """Seperates different number length values"""
     return values.split(",")
@@ -87,15 +80,20 @@ def main():
     """Main entry point of program."""
     print("Please enter a credit card number:")
     credit_card_number = input()
-    print('Credit Card Number:\t' + verify_credit_number(credit_card_number))
-    issuers = load_card_types()
-    card_type = determine_card_type(credit_card_number, issuers)
-    print('Credit Card Type:\t' + card_type)
-    if "-" in credit_card_number:
-        credit_card_number = credit_card_number.replace("-", "")
-    elif " " in credit_card_number:
-        credit_card_number = credit_card_number.replace(" ", "")
-    print('Luhn Verification:\t' + utils.luhn_verified(credit_card_number))
+    if utils.is_valid(credit_card_number):
+        print('Credit Card Number:\t' + credit_card_number)
+        issuers = load_card_types()
+        card_type = determine_card_type(credit_card_number, issuers)
+        print('Credit Card Type:\t' + card_type)
+        if "-" in credit_card_number:
+            credit_card_number = credit_card_number.replace("-", "")
+        elif " " in credit_card_number:
+            credit_card_number = credit_card_number.replace(" ", "")
+        print('Luhn Verification:\t' + utils.luhn_verified(credit_card_number))
+    else:
+        print('Credit Card Number:\tInvalid')
+        print('Credit Card Type:\tInvalid')
+        print('Luhn verification:\tN/A')
 
 if __name__ == "__main__":
     main()
