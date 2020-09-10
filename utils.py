@@ -17,14 +17,13 @@ def luhn_verified(credit_card_number):
     for digit in credit_card_number:
         digit = int(digit)
         number.append(digit)
-    odd_digits = number[-3::-2]
-    even_digits = number[-2::-2]
-    sum_of_numbers += sum(odd_digits)
-    for d in even_digits:
-        d = d * 2
-        if d > 9:
-            d = d - 9
-        sum_of_numbers += d
+    offset = (len(number) + 1) % 2
+    for i, n in enumerate(number):
+        if (i + offset) % 2:
+            n_ = n * 2
+            sum_of_numbers += n_ -9 if n_ > 9 else n_
+        else:
+            sum_of_numbers += n
     if sum_of_numbers % 10 == 0:
         result = "Authentic"
     return result

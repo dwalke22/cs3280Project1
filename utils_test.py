@@ -30,5 +30,9 @@ class TestUtils(unittest.TestCase):
         result = utils.luhn_verified("4573055613536303099")
         self.assertEqual(result, "Fake")
 
+    def test_real_card(self):
+        result = utils.luhn_verified("5558397375275489")
+        self.assertEqual(result, "Authentic")
+
 if __name__ == "__main__":
     unittest.main()
