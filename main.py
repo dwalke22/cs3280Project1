@@ -91,6 +91,11 @@ def main():
     issuers = load_card_types()
     card_type = determine_card_type(credit_card_number, issuers)
     print('Credit Card Type:\t' + card_type)
+    if "-" in credit_card_number:
+        credit_card_number = credit_card_number.replace("-", "")
+    else if " " in credit_card_number:
+        credit_card_number = credit_card_number.replace(" ", "")
+    print('Luhn Verification:\t' + utils.luhn_verified(credit_card_number))
 
 if __name__ == "__main__":
     main()
