@@ -13,17 +13,17 @@ def luhn_verified(credit_card_number):
     elif " " in credit_card_number:
         credit_card_number = credit_card_number.replace(" ", "")
     sum_of_numbers = 0
-    number = []
+    numbers = []
     for digit in credit_card_number:
         digit = int(digit)
-        number.append(digit)
-    offset = (len(number) + 1) % 2
-    for i, n in enumerate(number):
+        numbers.append(digit)
+    offset = (len(numbers) + 1) % 2
+    for i, number in enumerate(numbers):
         if (i + offset) % 2:
-            n_ = n * 2
-            sum_of_numbers += n_ -9 if n_ > 9 else n_
+            number = number * 2
+            sum_of_numbers += number -9 if number > 9 else number
         else:
-            sum_of_numbers += n
+            sum_of_numbers += number
     if sum_of_numbers % 10 == 0:
         result = "Authentic"
     return result
